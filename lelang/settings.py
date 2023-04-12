@@ -11,7 +11,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,18 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f!!0g6m-j_i+r6u*#2e4+%zo$7njdw6mm6hjwff#!%*c3eg7#!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS: list[str] = []
+
+dotenv_path = os.path.join(BASE_DIR, '.env')
+load_dotenv()
+
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+DEBUG = bool(os.getenv('DEBUG'))
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'lelang',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -55,7 +58,9 @@ ROOT_URLCONF = 'lelang.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,10 +79,20 @@ WSGI_APPLICATION = 'lelang.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+PG_DB_NAME = str(os.getenv('PG_DB_NAME'))
+PG_DB_USER = str(os.getenv('PG_DB_USER'))
+PG_DB_PASSWORD = str(os.getenv('PG_DB_PASSWORD'))
+HOST = str(os.getenv('HOST'))
+PG_DB_PORT = int(os.getenv('PG_DB_PORT'))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': PG_DB_NAME,
+        'USER': PG_DB_USER,
+        'PASSWORD': PG_DB_PASSWORD,
+        'HOST': HOST,
+        'PORT': PG_DB_PORT,
     }
 }
 

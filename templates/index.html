@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>This is the title of the webpage!</title>
+  </head>
+  <body>
+  {% for user in users %}
+    <p>
+      {{ user.id }}
+      {{ user.nickname }}
+      {{ user.date_of_birth }}
+    </p>
+  {% endfor %}
+  </body>
+</html>
