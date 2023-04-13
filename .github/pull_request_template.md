@@ -7,4 +7,5 @@
 - [ ] Docs for new functional.
 - [ ] Functional requirements are completed.
 - [ ] Linters pass.
+- [ ] Freeze requirements.
 

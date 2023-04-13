@@ -1,4 +1,3 @@
-# noqa: E501
 """
 Django settings for lelang project.
 
@@ -30,10 +29,15 @@ load_dotenv()
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = bool(os.getenv('DEBUG'))
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'debug_toolbar',
     'lelang',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,7 +88,7 @@ PG_DB_NAME = str(os.getenv('PG_DB_NAME'))
 PG_DB_USER = str(os.getenv('PG_DB_USER'))
 PG_DB_PASSWORD = str(os.getenv('PG_DB_PASSWORD'))
 HOST = str(os.getenv('HOST'))
-PG_DB_PORT = int(os.getenv('PG_DB_PORT'))
+PG_DB_PORT = str(os.getenv('PG_DB_PORT'))
 
 DATABASES = {
     'default': {

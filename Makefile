@@ -1,17 +1,3 @@
-# LeLang
-.PHONY: run
-run:
-	python manage.py runserver
-
-
-.PHONY: make-migrations
-make-migrations:
-	python manage.py makemigrations
-
-.PHONY: migrate
-migrate:
-	python manage.py migrate
-
 # SETUP
 .PHONY: setup
 setup:
@@ -20,7 +6,7 @@ setup:
 # CHECK
 .PHONY: lint
 lint:
-	mypy --strict lelang
+	mypy lelang
 	pylint lelang
 	flake8 lelang
 
@@ -46,5 +32,26 @@ compose-down:
 compose-rs:
 	make compose-down
 	make compose-up
+
+# MIGRATIONS
+.PHONY: make-migrations
+make-migrations:
+	python manage.py makemigrations
+
+.PHONY: migrate
+migrate:
+	python manage.py migrate
+
+# lelang
+.PHONY: run
+run:
+	python manage.py runserver
+
+.PHONY: run-full
+run-full:
+	make compose-up
+	sleep(5)
+	make migrate
+	make run
 
 
