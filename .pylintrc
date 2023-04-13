@@ -1,0 +1,22 @@
+[MAIN]
+load-plugins=
+    pylint_django,
+    pylint_django.checkers.migrations,
+
+django-settings-module=lelang.settings
+
+module-rgx=^([0-9]{4})?([a-z_][a-z0-9_]+)$
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=20
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+
+# Ignore imports when computing similarities.
+ignore-imports=no
