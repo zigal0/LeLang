@@ -1,0 +1,18 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Страница learning.
+{% endblock %}
+
+{% block content %}
+<body>
+  {% for word in words %}
+    <p>
+      {{ word.id }}
+      {{ word.word }}
+      {{ word.translation }}
+      {{ word.added_at }}
+    </p>
+  {% endfor %}
+</body>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="h-100" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block page-title %}{% endblock %}</title>
+    <!-- load static -->
+    {% load static %}
+    <!-- CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'navbar-fixed.css' %}" rel="stylesheet">
+  </head>
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">LeLang</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/learning">Learning</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/word-add">Word-add</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/word-list">Word-list</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="flex-shrink-0">
+    <div class="container">
+        <span>Нечто общее.</span>
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+  <div class="container">
+    <span class="text-body-secondary">Какая-то информация для футтера.</span>
+  </div>
+</footer>
+
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

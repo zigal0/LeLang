@@ -1,0 +1,4 @@
+/* Show it is fixed to the top */
+main > .container {
+  padding: 60px 15px 0;
+}

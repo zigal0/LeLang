@@ -21,6 +21,11 @@ from lelang import views
 
 urlpatterns = [
     path('', views.index),
-    path('__debug__/', include('debug_toolbar.urls')),
+    path('login/', views.login),
+    path('register/', views.register),
+    path('learning', views.learning),
+    path('word-add/', views.word_add),
+    path('word-list', views.word_list),
     path('admin/', admin.site.urls),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
