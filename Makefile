@@ -10,14 +10,6 @@ lint:
 	pylint lelang
 	flake8 lelang
 
-.PHONY: test
-test:
-	pytest # --cov
-
-.PHONY: check
-check:
-	make test
-	make lint
 
 # DOCKER
 .PHONY: compose-up

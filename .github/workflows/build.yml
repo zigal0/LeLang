@@ -32,5 +32,3 @@ jobs:
       run: pylint lelang
     - name: flake8
       run: flake8 lelang
-#    - name: test
-#      run: pytest
