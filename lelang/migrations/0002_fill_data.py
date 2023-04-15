@@ -3,11 +3,11 @@
 from django.db import migrations
 
 WORDS_EXAMPLE_DATA = """
-INSERT INTO public.words (word, translation, added_at) VALUES
-    ('I', 'Я', CURRENT_DATE),
-    ('Hate', 'Ненавижу', CURRENT_DATE),
-    ('Front', 'Передний', CURRENT_DATE),
-    ('End', 'Конец', CURRENT_DATE);
+INSERT INTO public.words (word, translation, added_at, is_learned, user_id) VALUES
+    ('I', 'Я', CURRENT_DATE, False, 1),
+    ('Hate', 'Ненавижу', CURRENT_DATE, False, 1),
+    ('Front', 'Передний', CURRENT_DATE, False, 1),
+    ('End', 'Конец', CURRENT_DATE, False, 1);
 """
 
 
