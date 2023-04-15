@@ -14,7 +14,7 @@ from lelang.models import Word
 
 def index(request: HttpRequest) -> HttpResponse:
     """Main page of app."""
-    return render(request, 'index.html')
+    return render(request, 'main/index.html')
 
 
 def learning(request: HttpRequest) -> HttpResponse:
@@ -22,7 +22,7 @@ def learning(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    return render(request, 'learning.html')
+    return render(request, 'main/learning.html')
 
 
 def word_add(request: HttpRequest) -> HttpResponse:
@@ -30,7 +30,7 @@ def word_add(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    return render(request, 'word_add.html')
+    return render(request, 'main/word_add.html')
 
 
 def word_list(request: HttpRequest) -> HttpResponse:
@@ -38,10 +38,10 @@ def word_list(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    words = Word.objects.all()
+    words = Word.objects.filter(user_id=request.user.id).values()
     return render(
         request,
-        template_name='word_list.html',
+        template_name='main/word_list.html',
         context={"words": words},
     )
 
@@ -49,7 +49,7 @@ def word_list(request: HttpRequest) -> HttpResponse:
 # AUTHENTICATION
 def login_page(request: HttpRequest) -> HttpResponse:
     """Page for login in."""
-    if not request.user.is_authenticated:
+    if request.user.is_authenticated:
         return redirect('home')
 
     if request.method == 'POST':
@@ -74,14 +74,14 @@ def login_page(request: HttpRequest) -> HttpResponse:
 
     return render(
         request=request,
-        template_name='login.html',
+        template_name='auth/login.html',
         context={'login_form': form},
     )
 
 
 def register_page(request: HttpRequest) -> HttpResponse:
     """Page for registration."""
-    if not request.user.is_authenticated:
+    if request.user.is_authenticated:
         return redirect('home')
 
     form: UserCreationForm
@@ -104,16 +104,13 @@ def register_page(request: HttpRequest) -> HttpResponse:
 
     return render(
         request=request,
-        template_name='register.html',
+        template_name='auth/register.html',
         context={'register_form': form},
     )
 
 
 def logout_page(request: HttpRequest) -> HttpResponse:
     """Page for logout."""
-    if not request.user.is_authenticated:
-        return redirect('home')
-
     logout(request)
     messages.info(request, 'You have successfully logged out.')
 

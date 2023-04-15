@@ -9,7 +9,7 @@
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="{% static 'navbar-fixed.css' %}" rel="stylesheet">
+        <link href="{% static 'js/navbar-fixed.css' %}" rel="stylesheet">
     </head>
 
     <body class="d-flex flex-column h-100">
@@ -69,7 +69,7 @@
         <!-- Main part of page -->
         <main class="flex-shrink-0">
             <div class="container">
-                {% include 'messages.html' %}
+                {% include 'common/messages.html' %}
                 <span>Something general.</span>
                 {% block content %}{% endblock %}
             </div>
