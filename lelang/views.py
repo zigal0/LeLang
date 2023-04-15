@@ -2,8 +2,12 @@
 Contains all views that are used in app.
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 from lelang.models import Word
 
@@ -15,25 +19,102 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def learning(request: HttpRequest) -> HttpResponse:
     """Page for learning words."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
     return render(request, 'learning.html')
-
-
-def login(request: HttpRequest) -> HttpResponse:
-    """Page for login in."""
-    return render(request, 'login.html')
-
-
-def register(request: HttpRequest) -> HttpResponse:
-    """Page for registration."""
-    return render(request, 'register.html')
 
 
 def word_add(request: HttpRequest) -> HttpResponse:
     """Page for adding new word."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
     return render(request, 'word_add.html')
 
 
 def word_list(request: HttpRequest) -> HttpResponse:
     """Page for presenting all words."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
     words = Word.objects.all()
-    return render(request, 'word_list.html', context={"words": words})
+    return render(
+        request,
+        template_name='word_list.html',
+        context={"words": words},
+    )
+
+
+# AUTHENTICATION
+def login_page(request: HttpRequest) -> HttpResponse:
+    """Page for login in."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.info(request, f'You are now logged in as {username}.')
+
+                return redirect('home')
+
+            messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+
+    form = AuthenticationForm()
+
+    return render(
+        request=request,
+        template_name='login.html',
+        context={'login_form': form},
+    )
+
+
+def register_page(request: HttpRequest) -> HttpResponse:
+    """Page for registration."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    form: UserCreationForm
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            login(request, user)
+            messages.success(request, 'Registration successful.')
+
+            return redirect('home')
+
+        messages.error(
+            request,
+            'Unsuccessful registration. Invalid information.',
+        )
+
+    form = UserCreationForm()
+
+    return render(
+        request=request,
+        template_name='register.html',
+        context={'register_form': form},
+    )
+
+
+def logout_page(request: HttpRequest) -> HttpResponse:
+    """Page for logout."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    logout(request)
+    messages.info(request, 'You have successfully logged out.')
+
+    return redirect('home')
