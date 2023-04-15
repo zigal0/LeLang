@@ -20,9 +20,10 @@ from django.urls import path, include
 from lelang import views
 
 urlpatterns = [
-    path('', views.index),
-    path('login/', views.login),
-    path('register/', views.register),
+    path('', views.index, name='home'),
+    path('login/', views.login_page, name='login'),
+    path('register/', views.register_page, name='register'),
+    path('logout', views.logout_page, name='logout'),
     path('learning', views.learning),
     path('word-add/', views.word_add),
     path('word-list', views.word_list),
