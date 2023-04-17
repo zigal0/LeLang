@@ -8,13 +8,36 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import get_user_model
 
 from lelang.models import Word
 
 
 def index(request: HttpRequest) -> HttpResponse:
     """Main page of app."""
-    return render(request, 'main/index.html')
+    user = get_user_model()
+    user_number = user.objects.all().count()
+    lang_number = 2
+    avg_word_number = round(Word.objects.all().count() / user_number, 1)
+    context = {
+        "user_number": user_number,
+        "lang_number": lang_number,
+        "avg_word_number": avg_word_number,
+    }
+
+    return render(
+        request=request,
+        template_name='main/index.html',
+        context=context,
+    )
+
+
+def user_page(request: HttpRequest) -> HttpResponse:
+    """User page of app."""
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    return render(request, 'main/user_page.html')
 
 
 def learning(request: HttpRequest) -> HttpResponse:
@@ -38,7 +61,7 @@ def word_list(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    words = Word.objects.filter(user_id=request.user.id).values()
+    words = Word.objects.filter(user_id=request.user.id)
     return render(
         request,
         template_name='main/word_list.html',
