@@ -5,11 +5,13 @@
         <title>{% block page-title %}{% endblock %}</title>
         <!-- load static -->
         {% load static %}
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
         <!-- CSS -->
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="{% static 'js/navbar-fixed.css' %}" rel="stylesheet">
+        <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
     </head>
 
     <body class="d-flex flex-column h-100">
@@ -18,7 +20,7 @@
             <!-- Fixed navbar -->
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="">LeLang</a>
+                    <a class="navbar-brand" href="/">LeLang</a>
                     <button
                             class="navbar-toggler"
                             type="button" data-bs-toggle="collapse"
@@ -30,37 +32,65 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <!-- Left side of navbar -->
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/learning">Learning</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/word-add">Word-add</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/word-list">Word-list</a>
-                            </li>
-                        </ul>
+                        {% if user.is_authenticated %}
+                            <!-- Left side of navbar -->
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/learning">Learning</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/word-add">Word-add</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/word-list">Word-list</a>
+                                </li>
+                            </ul>
 
-                        <!-- Right side of navbar -->
-                        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                            {% if user.is_authenticated %}
+                            <!-- Right side of navbar -->
+                            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/logout">Logout</a>
+                                    <div class="dropdown bd-mode-toggle">
+                                        <button
+                                                class="btn py-2 dropdown-toggle d-flex align-items-center"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                        >
+                                            <span style="color:white;">{{ user.username }}</span>
+                                        </button>
+                                        <ul
+                                                class="dropdown-menu dropdown-menu-end shadow"
+                                                aria-labelledby="bd-theme-text"
+                                        >
+                                            <li>
+                                                <a
+                                                      type="button"
+                                                      class="dropdown-item d-flex align-items-center"
+                                                      href="/user_page"
+                                                >
+                                                    Account
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                      type="button"
+                                                      class="dropdown-item d-flex align-items-center"
+                                                      href="/logout"
+                                                >
+                                                    Logout
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">{{ user.username }}</a>
-                                </li>
-                            {% else %}
+                            </ul>
+                        {% else %}
+                            <!-- Only login for navbar -->
+                            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/login">Login</a>
                                 </li>
-                            {% endif %}
-                        </ul>
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -70,7 +100,6 @@
         <main class="flex-shrink-0">
             <div class="container">
                 {% include 'common/messages.html' %}
-                <span>Something general.</span>
                 {% block content %}{% endblock %}
             </div>
         </main>
@@ -78,7 +107,10 @@
         <!-- Footer of page -->
         <footer class="footer mt-auto py-3 bg-body-tertiary">
             <div class="container">
-                <span class="text-body-secondary">Some info for footer.</span>
+                <span class="text-body-secondary">
+                    © 2023
+                    <a href="https://t.me/zigal0">Contact us</a>
+                </span>
             </div>
         </footer>
 

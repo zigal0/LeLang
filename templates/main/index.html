@@ -1,11 +1,50 @@
 {% extends "common/base_page.html" %}
+{% load static %}
 
 {% block page-title %}
-Page index.
+Home
 {% endblock %}
 
 {% block content %}
- <body>
-  TODO
- </body>
+
+<div class="row">
+    <div class="p-5 bg-body-tertiary rounded-3 col-md-6">
+        <div class="container-fluid py-3">
+            <h1 class="display-5 fw-bold">Learn and know more</h1>
+
+            <hr class="solid">
+
+            <p class="col-md-8 fs-4">Enter new words and their translations, learn and follow statistic.</p>
+
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h4>{{ user_number }}</h4>
+                    <p class="text-muted">Users</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>{{ lang_number }}</h4>
+                    <p class="text-muted">Languages</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>{{ avg_word_number }}</h4>
+                    <p class="text-muted">Words per user</p>
+                </div>
+            </div>
+
+            <div class="text-center py-3">
+                {% if user.is_authenticated %}
+                    <a href="/word-list" class="btn btn-primary btn-lg " type="button">Start learn</a>
+                {% else %}
+                    <a href="/login" class="btn btn-primary btn-lg text-center" type="button">Start learn</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <img
+                src="{% static 'images/icon.png' %}"
+        />
+    </div>
+</div>
 {% endblock %}
