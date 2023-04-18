@@ -9,8 +9,7 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
         <!-- CSS -->
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
+        <!-- Custom styles -->
         <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
     </head>
 
@@ -65,9 +64,9 @@
                                                 <a
                                                       type="button"
                                                       class="dropdown-item d-flex align-items-center"
-                                                      href="/user_page"
+                                                      href="/profile"
                                                 >
-                                                    Account
+                                                    Profile
                                                 </a>
                                             </li>
                                             <li>
@@ -116,6 +115,8 @@
 
         <!-- Scripts -->
         <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+        <script src="{% static 'js/validation.js' %}"></script>
 
         <script>
             var messages = document.getElementsByClassName('msg-container');

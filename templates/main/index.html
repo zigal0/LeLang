@@ -8,7 +8,7 @@ Home
 {% block content %}
 
 <div class="row">
-    <div class="p-5 bg-body-tertiary rounded-3 col-md-6">
+    <div class="p-5 bg-dark-subtle rounded-3 col-md-6">
         <div class="container-fluid py-3">
             <h1 class="display-5 fw-bold">Learn and know more</h1>
 
@@ -31,7 +31,7 @@ Home
                 </div>
             </div>
 
-            <div class="text-center py-3">
+            <div class="text-center pt-5">
                 {% if user.is_authenticated %}
                     <a href="/word-list" class="btn btn-primary btn-lg " type="button">Start learn</a>
                 {% else %}

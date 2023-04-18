@@ -5,7 +5,102 @@ Add word
 {% endblock %}
 
 {% block content %}
-<body>
-    <p>TODO</p>
-</body>
+<div class="row">
+    <div class="col-md-6 col-lg-7 bg-dark-subtle rounded-3 p-5">
+        <h4 class="mb-3">Add new word</h4>
+        <!-- Form to add new word -->
+        <form class="needs-validation" method="POST" novalidate>
+            <!-- Languages -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="language-from" class="form-label">Word language</label>
+
+                    <select class="form-select" id="language-from" name="language-from" required>
+                        <option value="">Choose...</option>
+                        {% for language in languages %}
+                            <option>{{ language }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Please select language for word.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="language-to" class="form-label">Translation language</label>
+
+                    <select class="form-select" id="language-to" name="language-to" required>
+                        <option value="">Choose...</option>
+                        {% for language in languages %}
+                            <option>{{ language }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Please select language for translation.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Word and its translation -->
+            <div class="row g-3 pt-5">
+                <div class="col-sm-3">
+                    <label for="word" class="form-label">Word</label>
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            name="word"
+                            id="word"
+                            placeholder="Complex"
+                            value=""
+                            required
+                    >
+
+                    <div class="invalid-feedback">
+                        Please enter word to remember.
+                    </div>
+                </div>
+
+                <div class="col-sm-9">
+                    <label for="translation" class="form-label">Translation</label>
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            name="translation"
+                            id="translation"
+                            placeholder="Сложный, комплесный"
+                            value required
+                    >
+
+                    <div class="invalid-feedback">
+                        Please enter translation for word.
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+        </form>
+    </div>
+
+    <!-- Addition spacing -->
+    <div class="col-md-1 col-lg-1"></div>
+
+    <!-- Tips -->
+    <div class="col-md-5 col-lg-4 bg-dark-subtle rounded-3 p-5">
+        <h4 class="mb-3">Tips:</h4>
+
+        <div class="list-group-numbered">
+            <li class="list-group-item">You should choose different languages for adding new word.</li>
+            <hr class="my-4">
+            <li class="list-group-item">If you try to add existing word it will be modified with new translation.</li>
+            <hr class="my-4">
+            <li class="list-group-item">After adding you can move to 'Learning' section and start learning.</li>
+        </div>
+    </div>
+</div>
 {% endblock %}
