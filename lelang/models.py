@@ -20,7 +20,7 @@ class Language(models.Model):
                f'short_name = {self.short_name}'
 
 
-class Word(models.Model):
+class Term(models.Model):
     """Represents word."""
     word = models.CharField(max_length=30)
     translation = models.CharField(max_length=100)
@@ -43,8 +43,8 @@ class Word(models.Model):
 
     class Meta:
         unique_together = ('word', 'language_to', 'language_from', 'user_id',)
-        db_table = 'words'
+        db_table = 'terms'
 
     def __str__(self) -> str:
-        return f'Word: word = {self.word}, translation = {self.translation}, ' \
+        return f'Term: word = {self.word}, translation = {self.translation}, ' \
                f'user_id = {self.user.id}'

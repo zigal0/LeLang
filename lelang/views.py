@@ -11,7 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 
-from lelang.models import Word, Language
+from lelang.models import Term, Language
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -20,13 +20,13 @@ def index(request: HttpRequest) -> HttpResponse:
     user_number = user.objects.count()
     lang_number = Language.objects.count()
     if user_number == 0:
-        avg_word_number = 0.0
+        avg_term_number = 0.0
     else:
-        avg_word_number = round(Word.objects.all().count() / user_number, 1)
+        avg_term_number = round(Term.objects.all().count() / user_number, 1)
     context = {
         'user_number': user_number,
         'lang_number': lang_number,
-        'avg_word_number': avg_word_number,
+        'avg_term_number': avg_term_number,
     }
 
     return render(
@@ -52,7 +52,7 @@ def learning(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/learning.html')
 
 
-def word_add(request: HttpRequest) -> HttpResponse:
+def term_add(request: HttpRequest) -> HttpResponse:
     """Page for adding new word."""
     if not request.user.is_authenticated:
         return redirect('home')
@@ -70,8 +70,8 @@ def word_add(request: HttpRequest) -> HttpResponse:
 
         language_from = str(request.POST.get('language-from'))
         language_to = str(request.POST.get('language-to'))
-        new_word = str(request.POST.get('word')).strip()
-        translation = str(request.POST.get('translation')).strip()
+        new_word = str(request.POST.get('word')).strip().lower()
+        translation = str(request.POST.get('translation')).strip().lower()
         user_id = request.user.id
 
         if language_from == language_to:
@@ -81,7 +81,7 @@ def word_add(request: HttpRequest) -> HttpResponse:
         elif len(translation) == 0:
             messages.error(request, 'Translation should contain at least 1 letter.')
         else:
-            Word.objects. \
+            Term.objects. \
                 update_or_create(
                     word=new_word,
                     language_from_id=languages_dict[language_from],
@@ -93,27 +93,68 @@ def word_add(request: HttpRequest) -> HttpResponse:
                     }
                 )
 
-            messages.success(request, 'New word added.')
+            messages.success(request, 'New term added.')
 
-            return redirect('word-list')
+            return redirect('term-list')
 
     return render(
         request=request,
-        template_name='main/word_add.html',
+        template_name='main/term_add.html',
         context=context,
     )
 
 
-def word_list(request: HttpRequest) -> HttpResponse:
+def term_list(request: HttpRequest) -> HttpResponse:
     """Page for presenting all words."""
     if not request.user.is_authenticated:
         return redirect('home')
 
-    words = Word.objects.filter(user_id=request.user.id)
+    tables = []
+    languages = Language.objects.values_list('id', 'full_name')
+    print(languages)
+    for language_from in languages:
+        for language_to in languages:
+            if language_to[0] == language_from[0]:
+                continue
+
+            terms = Term.objects.filter(
+                user_id=request.user.id,
+                language_from=language_from[0],
+                language_to=language_to[0],
+            )
+
+            term_number = len(terms)
+
+            if term_number == 0:
+                continue
+
+            table_terms = [
+                {
+                    'word': term.word,
+                    'translation': term.translation,
+                    'is_learned': term.is_learned,
+                } for term in terms
+            ]
+
+            learned_terms = [term for term in terms if term.is_learned]
+            learned_percent = len(learned_terms) / term_number
+
+            table = {
+                'meta': {
+                    'language_from': language_from[1],
+                    'language_to': language_to[1],
+                    'term_number': term_number,
+                    'learned_percent': learned_percent,
+                },
+                'terms': table_terms,
+            }
+
+            tables.append(table)
+
     return render(
         request=request,
-        template_name='main/word_list.html',
-        context={"words": words},
+        template_name='main/term_list.html',
+        context={"tables": tables},
     )
 
 
