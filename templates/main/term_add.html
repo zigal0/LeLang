@@ -1,12 +1,12 @@
 {% extends "common/base_page.html" %}
 
 {% block page-title %}
-Add word
+Term add
 {% endblock %}
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6 col-lg-7 bg-dark-subtle rounded-3 p-5">
+    <div class="col-md-6 bg-dark-subtle rounded-3 p-5">
         <h4 class="mb-3">Add new word</h4>
         <!-- Form to add new word -->
         <form class="needs-validation" method="POST" novalidate>
@@ -45,7 +45,7 @@ Add word
 
             <!-- Word and its translation -->
             <div class="row g-3 pt-5">
-                <div class="col-sm-3">
+                <div class="col-md-3">
                     <label for="word" class="form-label">Word</label>
 
                     <input
@@ -53,7 +53,7 @@ Add word
                             type="text"
                             name="word"
                             id="word"
-                            placeholder="Complex"
+                            placeholder="complex"
                             value=""
                             required
                     >
@@ -63,7 +63,7 @@ Add word
                     </div>
                 </div>
 
-                <div class="col-sm-9">
+                <div class="col-md-9">
                     <label for="translation" class="form-label">Translation</label>
 
                     <input
@@ -71,7 +71,7 @@ Add word
                             type="text"
                             name="translation"
                             id="translation"
-                            placeholder="Сложный, комплесный"
+                            placeholder="сложный, комплесный"
                             value required
                     >
 
@@ -87,11 +87,8 @@ Add word
         </form>
     </div>
 
-    <!-- Addition spacing -->
-    <div class="col-md-1 col-lg-1"></div>
-
     <!-- Tips -->
-    <div class="col-md-5 col-lg-4 bg-dark-subtle rounded-3 p-5">
+    <div class="col-md-5 bg-dark-subtle rounded-3 p-5 offset-md-1">
         <h4 class="mb-3">Tips:</h4>
 
         <div class="list-group-numbered">

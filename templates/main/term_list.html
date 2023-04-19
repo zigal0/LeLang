@@ -1,0 +1,59 @@
+{% extends "common/base_page.html" %}
+
+{% block page-title %}
+Term list
+{% endblock %}
+
+{% block content %}
+{% if tables|length != 0 %}
+    {% for table in tables %}
+        <div class="px-4 py-5">
+            <div class="row g-3 col-md-10">
+                <div class="col-md-3">
+                    <h5>{{ table.meta.language_from }} - {{ table.meta.language_to }}</h5>
+                </div>
+                <div class="col-md-3">
+                    <h5>Words: {{ table.meta.term_number }}</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5>Learned: {{ table.meta.learned_percent }} %</h5>
+                </div>
+                <div class="col-md-2">
+                    <a
+                            class="btn btn-primary rounded-pill px-3"
+                            type="button"
+                            href="/term-add"
+                    >
+                        Add
+                    </a>
+                </div>
+                <hr class="my-3">
+            </div>
+
+            {% for term in table.terms %}
+                <div>
+                    <div class="hstack gap-3 col-md-8 bg-dark-subtle rounded-3 p-3 mb-3">
+                            <div class="col-md-3">{{ term.word }}</div>
+                            <div class="vr"></div>
+                            <div class="col-md-7">{{ term.translation }}</div>
+                            <div class="col-md-1">
+                                {% if term.is_learned %}
+                                    &#128994;
+                                {% else %}
+                                    &#128308;
+                                {% endif %}
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% else %}
+<div class="text-center pt-5">
+    <h3>There is no word for you</h3>
+    <a href="/term-add">
+        Go and add some
+    </a>
+</div>
+{% endif %}
+{% endblock %}
