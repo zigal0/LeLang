@@ -19,7 +19,7 @@ Term add
                     <select class="form-select" id="language-from" name="language-from" required>
                         <option value="">Choose...</option>
                         {% for language_short in languages_short %}
-                            <option>{{ language_short }}</option>
+                        <option>{{ language_short }}</option>
                         {% endfor %}
                     </select>
 
@@ -104,5 +104,9 @@ Term add
 {% endblock %}
 
 {% block scripts %}
+<script>
+    setActiveNav('#term-add-tab')
+</script>
+
 <script src="{% static 'js/validation.js' %}"></script>
 {% endblock %}

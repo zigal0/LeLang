@@ -15,7 +15,7 @@ from django.core.cache import cache
 from lelang.models import Term, Language
 
 
-def index(request: HttpRequest) -> HttpResponse:
+def index_page(request: HttpRequest) -> HttpResponse:
     """Main page of app."""
     user = get_user_model()
     user_number = user.objects.count()
@@ -37,7 +37,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-def profile(request: HttpRequest) -> HttpResponse:
+def profile_page(request: HttpRequest) -> HttpResponse:
     """User page of app."""
     if not request.user.is_authenticated:
         return redirect('home')
@@ -45,7 +45,7 @@ def profile(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/profile.html')
 
 
-def learning(request: HttpRequest) -> HttpResponse:
+def learning_page(request: HttpRequest) -> HttpResponse:
     """Page for learning words."""
     if not request.user.is_authenticated:
         return redirect('home')
@@ -69,7 +69,7 @@ def learning(request: HttpRequest) -> HttpResponse:
     )
 
 
-def term_add(request: HttpRequest) -> HttpResponse:
+def term_add_page(request: HttpRequest) -> HttpResponse:
     """Page for adding new word."""
     if not request.user.is_authenticated:
         return redirect('home')
@@ -122,7 +122,7 @@ def term_add(request: HttpRequest) -> HttpResponse:
     )
 
 
-def term_list(request: HttpRequest) -> HttpResponse:
+def term_list_page(request: HttpRequest) -> HttpResponse:
     """Page for presenting all words."""
     if not request.user.is_authenticated:
         return redirect('home')
@@ -209,7 +209,7 @@ def login_page(request: HttpRequest) -> HttpResponse:
     )
 
 
-def register_page(request: HttpRequest) -> HttpResponse:
+def signup_page(request: HttpRequest) -> HttpResponse:
     """Page for registration."""
     if request.user.is_authenticated:
         return redirect('home')
@@ -234,7 +234,7 @@ def register_page(request: HttpRequest) -> HttpResponse:
 
     return render(
         request=request,
-        template_name='auth/register.html',
+        template_name='auth/signup.html',
         context={'register_form': form},
     )
 

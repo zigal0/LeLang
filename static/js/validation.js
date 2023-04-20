@@ -6,13 +6,13 @@
 
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
-        form.addEventListener("submit", event => {
+        form.addEventListener('submit', event => {
             if (!form.checkValidity() || languageFrom == languageTo) {
                 event.preventDefault();
                 event.stopPropagation();
             }
 
-            form.classList.add("was-validated");
+            form.classList.add('was-validated');
         }, false)
     })
 })()

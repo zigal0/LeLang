@@ -33,18 +33,22 @@ Home
 
             <div class="text-center pt-5">
                 {% if user.is_authenticated %}
-                    <a href="/term-list" class="btn btn-primary btn-lg " type="button">Start learn</a>
+                <a href="/term-list" class="btn btn-primary btn-lg " type="button">Start learn</a>
                 {% else %}
-                    <a href="/login" class="btn btn-primary btn-lg text-center" type="button">Start learn</a>
+                <a href="/login" class="btn btn-primary btn-lg text-center" type="button">Start learn</a>
                 {% endif %}
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <img
-                src="{% static 'images/icon.png' %}"
-        />
+        <img src="{% static 'images/big_icon.png' %}"/>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    setActiveNav('#home-tab')
+</script>
 {% endblock %}
