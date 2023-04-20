@@ -1,0 +1,27 @@
+{% extends "common/base_page.html" %}
+
+{% block page-title %}
+SignUp
+{% endblock %}
+
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="login container py-4 bg-dark-subtle rounded-3 col-md-6 mb-3">
+    <div class="vstack px-5">
+        <h1 class="fw-bold text-center">SignUp</h1>
+
+        <hr class="solid">
+
+        <form method="POST" class="vstack gap-1">
+            {% csrf_token %}
+			{{ register_form|crispy }}
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary col-md-6" type="submit">SignUp</button>
+            </div>
+        </form>
+
+        <spun class="text-center pt-4">If you already have an account, <a href="/login">login</a> instead.</spun>
+    </div>
+</div>
+{% endblock %}

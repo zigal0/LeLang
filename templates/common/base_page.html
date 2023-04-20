@@ -9,94 +9,108 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
         <!-- CSS -->
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-        <!-- Custom styles -->
-        <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
         {% block css %}{% endblock %}
         <!-- Help scripts -->
         <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+        <script src="{% static 'js/nav.js' %}"></script>
     </head>
 
     <body class="d-flex flex-column h-100 bg-body-tertiary">
         <!-- Header of page -->
-        <header>
-            <!-- Fixed navbar -->
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">LeLang</a>
-                    <button
-                            class="navbar-toggler"
-                            type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse"
-                            aria-controls="navbarCollapse"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        {% if user.is_authenticated %}
-                            <!-- Left side of navbar -->
-                            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                                <li class="nav-item text-white">
-                                    <a class="nav-link text-white" href="/learning">Learning</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="/term-add">Word add</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="/term-list">Word list</a>
-                                </li>
-                            </ul>
+        <header class="p-3 bg-dark mb-5">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                    <img class="mx-2" width="42" height="42" src="{% static 'images/small_icon.png' %}"/>
 
-                            <!-- Right side of navbar -->
-                            <ul class="nav ms-auto mb-2 mb-md-0">
-                                <li class="nav-item">
-                                    <div class="dropdown bd-mode-toggle">
-                                        <button
-                                                class="btn py-2 dropdown-toggle d-flex align-items-center"
-                                                type="button"
-                                                data-bs-toggle="dropdown"
-                                        >
-                                            <span style="color:white;">{{ user.username }}</span>
-                                        </button>
-                                        <ul
-                                                class="dropdown-menu dropdown-menu-end shadow"
-                                                aria-labelledby="bd-theme-text"
-                                        >
-                                            <li>
-                                                <a
-                                                      type="button"
-                                                      class="dropdown-item d-flex align-items-center"
-                                                      href="/profile"
-                                                >
-                                                    Profile
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                      type="button"
-                                                      class="dropdown-item d-flex align-items-center"
-                                                      href="/logout"
-                                                >
-                                                    Logout
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                    <h3 class="text-white">LeLang</h3>
+
+                    {% if user.is_authenticated %}
+                    <div class="vr text-white mx-3"></div>
+
+                    <ul class="nav nav-pills col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li class="nav-item px-2">
+                            <h5><a
+                                    href="/"
+                                    class="nav-link text-white"
+                                    id="home-tab"
+                            >
+                                Home
+                            </a></h5>
+                        </li>
+                        <li class="nav-item px-2">
+                            <h5><a
+                                    href="/term-list"
+                                    class="nav-link text-white"
+                                    id="term-list-tab"
+                            >
+                                Term list
+                            </a></h5>
+                        </li>
+                        <li class="nav-item px-2">
+                            <h5><a
+                                    href="/term-add"
+                                    class="nav-link text-white"
+                                    id="term-add-tab"
+                            >
+                                Term Add
+                            </a></h5>
+                        </li>
+                        <li class="nav-item px-2">
+                            <h5><a
+                                    href="/learning"
+                                    class="nav-link text-white"
+                                    id="learning-tab"
+                            >
+                                Learning
+                            </a></h5>
+                        </li>
+                    </ul>
+
+                    <div class="text-end">
+                        <div class="dropdown bd-mode-toggle">
+
+                            <button
+                                    class="btn py-2 dropdown-toggle d-flex align-items-center text-white"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                            >
+                                {{ user.username }}
+                            </button>
+                            <ul
+                                    class="dropdown-menu dropdown-menu-end shadow"
+                                    aria-labelledby="bd-theme-text"
+                            >
+                                <li>
+                                    <a
+                                          type="button"
+                                          class="btn dropdown-item d-flex align-items-center rounded-2"
+                                          href="/profile"
+                                    >
+                                        Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                          type="button"
+                                          class="btn dropdown-item d-flex align-items-center rounded-2"
+                                          href="/logout"
+                                    >
+                                        Logout
+                                    </a>
                                 </li>
                             </ul>
-                        {% else %}
-                            <!-- Only login for navbar -->
-                            <ul class="nav ms-auto mb-2 mb-md-0">
-                                <li class="nav-item">
-                                    <a type="button" class="btn btn-outline-light me-2" href="/login">Login</a>
-                                </li>
-                            </ul>
-                        {% endif %}
+                        </div>
                     </div>
+
+                    {% else %}
+                    <div class="text-end ms-auto">
+                        <a href="/login" type="button" class="btn btn-outline-light me-2">Login</a>
+                        <a href="/signup" type="button" class="btn btn-warning">SignUp</a>
+                    </div>
+                    {% endif %}
                 </div>
-            </nav>
+            </div>
         </header>
 
         <!-- Main part of page -->
@@ -112,7 +126,7 @@
             <div class="container">
                 <span>
                     © 2023 LeLang,
-                    <a href="https://t.me/zigal0">Contact us</a>
+                    <a href="https://t.me/zigal0">Contact us</a>.
                 </span>
             </div>
         </footer>

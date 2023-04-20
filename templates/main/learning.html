@@ -40,7 +40,9 @@ Learning
 
 {% block scripts %}
 <script>
-terms = JSON.parse('{{ terms|escapejs }}');
+    setActiveNav('#learning-tab')
+
+    terms = JSON.parse('{{ terms|escapejs }}');
 </script>
 
 <script src="{% static 'js/cards.js' %}"></script>

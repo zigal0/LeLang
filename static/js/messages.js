@@ -1,4 +1,4 @@
-$("#msg").each(function(i, msg) {
+$('#msg').each(function(i, msg) {
     setTimeout(function() {
         msg.remove();
     }, 3000);
