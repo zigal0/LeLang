@@ -7,8 +7,8 @@ Term list
 {% block content %}
 {% if tables|length != 0 %}
     {% for table in tables %}
-        <div class="px-4 py-5">
-            <div class="row g-3 col-md-10">
+        <div class="px-4 py-5 bg-body-secondary rounded-5 my-3">
+            <div class="row">
                 <div class="col-md-3">
                     <h5>{{ table.meta.language_from }} - {{ table.meta.language_to }}</h5>
                 </div>
@@ -32,11 +32,11 @@ Term list
 
             {% for term in table.terms %}
                 <div>
-                    <div class="hstack gap-3 col-md-8 bg-dark-subtle rounded-3 p-3 mb-3">
+                    <div class="hstack gap-3 bg-dark-subtle rounded-3 p-3 mb-3">
                             <div class="col-md-3">{{ term.word }}</div>
                             <div class="vr"></div>
                             <div class="col-md-7">{{ term.translation }}</div>
-                            <div class="col-md-1">
+                            <div class="ms-auto">
                                 {% if term.is_learned %}
                                     &#128994;
                                 {% else %}

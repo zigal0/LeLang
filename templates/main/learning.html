@@ -1,9 +1,47 @@
 {% extends "common/base_page.html" %}
+{% load static %}
 
 {% block page-title %}
 Learning
 {% endblock %}
 
+{% block css %}
+<link href="{% static 'css/card.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-TODO
+{% if terms|length != 0 %}
+    <div class="btn card container-fluid bg-dark-subtle mt-3 text-center" id="card">
+        <span class="display-5 fw-bold" id="content"></span>
+    </div>
+    <div class="container-fluid controls mt-4">
+        <button
+                class="btn btn-primary rounded-pill primary  px-4 py-2 m-3"
+                id="prev"
+        >
+            &#8678;
+        </button>
+        <button
+                class="btn btn-primary rounded-pill primary  px-4 py-2 m-3"
+                id="next"
+        >
+            &#8680;
+        </button>
+    </div>
+{% else %}
+<div class="text-center pt-5">
+    <h3>There is no word for you</h3>
+    <a href="/term-add">
+        Go and add some
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+terms = JSON.parse('{{ terms|escapejs }}');
+</script>
+
+<script src="{% static 'js/cards.js' %}"></script>
 {% endblock %}

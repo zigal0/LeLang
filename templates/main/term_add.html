@@ -1,4 +1,5 @@
 {% extends "common/base_page.html" %}
+{% load static %}
 
 {% block page-title %}
 Term add
@@ -17,8 +18,8 @@ Term add
 
                     <select class="form-select" id="language-from" name="language-from" required>
                         <option value="">Choose...</option>
-                        {% for language in languages %}
-                            <option>{{ language }}</option>
+                        {% for language_short in languages_short %}
+                            <option>{{ language_short }}</option>
                         {% endfor %}
                     </select>
 
@@ -32,8 +33,8 @@ Term add
 
                     <select class="form-select" id="language-to" name="language-to" required>
                         <option value="">Choose...</option>
-                        {% for language in languages %}
-                            <option>{{ language }}</option>
+                        {% for language_short in languages_short %}
+                            <option>{{ language_short }}</option>
                         {% endfor %}
                     </select>
 
@@ -91,13 +92,17 @@ Term add
     <div class="col-md-5 bg-dark-subtle rounded-3 p-5 offset-md-1">
         <h4 class="mb-3">Tips:</h4>
 
-        <div class="list-group-numbered">
-            <li class="list-group-item">You should choose different languages for adding new word.</li>
+        <div>
+            <span>You should choose different languages for adding new word.</span>
             <hr class="my-4">
-            <li class="list-group-item">If you try to add existing word it will be modified with new translation.</li>
+            <span>If you try to add existing word it will be modified with new translation.</span>
             <hr class="my-4">
-            <li class="list-group-item">After adding you can move to 'Learning' section and start learning.</li>
+            <span>After adding you can move to 'Learning' section and start learning.</span>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/validation.js' %}"></script>
 {% endblock %}

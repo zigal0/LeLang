@@ -1,0 +1,17 @@
+.card {
+    width: 500px;
+    height: 400px;
+    outline: solid 3px black;
+    display: flex;
+    justify-content: center;
+}
+
+.card:hover{
+    box-shadow: 10px 12px 12px 10px #a1d0ff;
+    transform: scale(1.02);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+}
