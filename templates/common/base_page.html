@@ -11,9 +11,13 @@
         <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
         <!-- Custom styles -->
         <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
+        {% block css %}{% endblock %}
+        <!-- Help scripts -->
+        <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
     </head>
 
-    <body class="d-flex flex-column h-100">
+    <body class="d-flex flex-column h-100 bg-body-tertiary">
         <!-- Header of page -->
         <header>
             <!-- Fixed navbar -->
@@ -33,20 +37,20 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         {% if user.is_authenticated %}
                             <!-- Left side of navbar -->
-                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/learning">Learning</a>
+                            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                                <li class="nav-item text-white">
+                                    <a class="nav-link text-white" href="/learning">Learning</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/term-add">Word add</a>
+                                    <a class="nav-link text-white" href="/term-add">Word add</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/term-list">Word list</a>
+                                    <a class="nav-link text-white" href="/term-list">Word list</a>
                                 </li>
                             </ul>
 
                             <!-- Right side of navbar -->
-                            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                            <ul class="nav ms-auto mb-2 mb-md-0">
                                 <li class="nav-item">
                                     <div class="dropdown bd-mode-toggle">
                                         <button
@@ -84,9 +88,9 @@
                             </ul>
                         {% else %}
                             <!-- Only login for navbar -->
-                            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                            <ul class="nav ms-auto mb-2 mb-md-0">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/login">Login</a>
+                                    <a type="button" class="btn btn-outline-light me-2" href="/login">Login</a>
                                 </li>
                             </ul>
                         {% endif %}
@@ -104,29 +108,18 @@
         </main>
 
         <!-- Footer of page -->
-        <footer class="footer mt-auto py-3 bg-body-tertiary">
+        <footer class="footer mt-auto py-3 bg-body-secondary">
             <div class="container">
-                <span class="text-body-secondary">
-                    © 2023
+                <span>
+                    © 2023 LeLang,
                     <a href="https://t.me/zigal0">Contact us</a>
                 </span>
             </div>
         </footer>
 
-        <!-- Scripts -->
-        <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- scripts -->
+        {% block scripts %}{% endblock %}
 
-        <script src="{% static 'js/validation.js' %}"></script>
-
-        <script>
-            var messages = document.getElementsByClassName('msg-container');
-            for (let i = 0; i < messages.length; i++) {
-                let message = messages[i]
-                setTimeout(function() {
-                    message.remove();
-                }, 3000);
-            }
-        </script>
-
+        <script src="{% static 'js/messages.js' %}"></script>
     </body>
 </html>

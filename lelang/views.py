@@ -1,6 +1,7 @@
 """
 Contains all views that are used in app.
 """
+import json
 
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
@@ -49,7 +50,23 @@ def learning(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    return render(request, 'main/learning.html')
+    terms_db = Term.objects.\
+        filter(is_learned=False).\
+        values_list('word', 'translation')
+    terms = [{
+        'word': word,
+        'translation': translation,
+        } for word, translation in terms_db]
+
+    context = {
+        'terms': json.dumps(terms)
+    }
+
+    return render(
+        request=request,
+        template_name='main/learning.html',
+        context=context
+    )
 
 
 def term_add(request: HttpRequest) -> HttpResponse:
@@ -57,13 +74,9 @@ def term_add(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    languages = Language.objects.values_list('id', 'short_name')
-    language_short_names = [short_name for _, short_name in languages]
+    languages_db = Language.objects.values_list('id', 'short_name')
 
-    languages_dict = {name: lang_id for lang_id, name in languages}
-    context = {
-        'languages': language_short_names
-    }
+    languages_dict = {name: lang_id for lang_id, name in languages_db}
 
     if request.method == 'POST':
         cache.clear()
@@ -97,6 +110,11 @@ def term_add(request: HttpRequest) -> HttpResponse:
 
             return redirect('term-list')
 
+    languages_short = [short_name for _, short_name in languages_db]
+    context = {
+        'languages_short': languages_short
+    }
+
     return render(
         request=request,
         template_name='main/term_add.html',
@@ -109,9 +127,9 @@ def term_list(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect('home')
 
-    tables = []
     languages = Language.objects.values_list('id', 'full_name')
-    print(languages)
+    tables = []
+
     for language_from in languages:
         for language_to in languages:
             if language_to[0] == language_from[0]:
