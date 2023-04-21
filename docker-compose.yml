@@ -4,8 +4,8 @@ services:
   postgres-db:
     image: postgres:13
     environment:
-      POSTGRES_DB: test-db
-      POSTGRES_USER: test-db-user
+      POSTGRES_DB: lelang-db
+      POSTGRES_USER: lelang-db-user
       POSTGRES_PASSWORD: 1234
     ports:
       - "6432:5432"

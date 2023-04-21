@@ -10,30 +10,29 @@ Learning
 {% endblock %}
 
 {% block content %}
-{% if terms|length != 0 %}
-    <div class="btn card container-fluid bg-dark-subtle mt-3 text-center" id="card">
+{% if term_number != 0 %}
+    <div class="btn card container-fluid bg-dark-subtle mt-3 text-center rounded-3" id="card">
         <span class="display-5 fw-bold" id="content"></span>
     </div>
-    <div class="container-fluid controls mt-4">
+    <div class="hstack controls mt-5 gap-5">
         <button
-                class="btn btn-primary rounded-pill primary  px-4 py-2 m-3"
+                class="btn btn-primary rounded-pill primary"
                 id="prev"
         >
             &#8678;
         </button>
+        <h3><span id="counter"></span> / {{ term_number }}</h3>
         <button
-                class="btn btn-primary rounded-pill primary  px-4 py-2 m-3"
+                class="btn btn-primary rounded-pill primary"
                 id="next"
         >
             &#8680;
         </button>
     </div>
 {% else %}
-<div class="text-center pt-5">
-    <h3>There is no word for you</h3>
-    <a href="/term-add">
-        Go and add some
-    </a>
+<div class="container-fluid bg-dark-subtle rounded-3 text-center mt-5 col-md-5 p-4">
+    <h3>For learning process you need to have unknown terms</h3>
+    <h5><a href="/term-add">Go and add some</a></h5>
 </div>
 {% endif %}
 {% endblock %}

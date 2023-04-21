@@ -27,6 +27,9 @@ function changeTerm(i) {
     $('#content').empty();
     $('#content').append(terms[i].word);
 
+    $('#counter').empty();
+    $('#counter').append(i + 1);
+
     if (i == 0) {
         $('#prev').prop('disabled', true);
     } else {

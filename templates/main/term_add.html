@@ -55,6 +55,7 @@ Term add
                             name="word"
                             id="word"
                             placeholder="complex"
+                            autocomplete="off"
                             value=""
                             required
                     >
@@ -73,6 +74,7 @@ Term add
                             name="translation"
                             id="translation"
                             placeholder="сложный, комплесный"
+                            autocomplete="off"
                             value required
                     >
 
@@ -84,7 +86,7 @@ Term add
 
             <hr class="my-4">
 
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+            <button class="w-100 btn btn-primary btn-lg" formaction="/api/term-add" type="submit">Save</button>
         </form>
     </div>
 
