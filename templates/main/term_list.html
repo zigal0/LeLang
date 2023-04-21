@@ -6,19 +6,20 @@ Term list
 
 {% block content %}
 {% if tables|length != 0 %}
+<h3>Your tables:</h3>
 {% for table in tables %}
-<div class="px-4 py-5 bg-body-secondary rounded-5 my-3">
-    <div class="row">
-        <div class="col-md-3">
+<div class="px-3 py-3 bg-body-secondary rounded-5 mt-3">
+    <div class="row text-center">
+        <div class="col my-auto">
             <h5>{{ table.meta.language_from }} - {{ table.meta.language_to }}</h5>
         </div>
-        <div class="col-md-3">
+        <div class="col my-auto">
             <h5>Words: {{ table.meta.term_number }}</h5>
         </div>
-        <div class="col-md-4">
+        <div class="col my-auto">
             <h5>Learned: {{ table.meta.learned_percent }} %</h5>
         </div>
-        <div class="col-md-2">
+        <div class="col my-auto">
             <a
                     class="btn btn-primary rounded-pill px-3"
                     type="button"
@@ -27,12 +28,13 @@ Term list
                 Add
             </a>
         </div>
-        <hr class="my-3">
     </div>
+
+    <hr class="my-2">
 
     {% for term in table.terms %}
     <div>
-        <div class="hstack gap-3 bg-dark-subtle rounded-3 p-3 mb-3">
+        <div class="hstack gap-3 bg-dark-subtle rounded-3 p-3 mt-3">
                 <div class="col-md-3">{{ term.word }}</div>
                 <div class="vr"></div>
                 <div class="col-md-7">{{ term.translation }}</div>
@@ -49,11 +51,9 @@ Term list
 </div>
 {% endfor %}
 {% else %}
-<div class="text-center pt-5">
+<div class="container-fluid bg-dark-subtle rounded-3 text-center mt-5 col-md-5 p-4">
     <h3>There is no word for you</h3>
-    <a href="/term-add">
-        Go and add some
-    </a>
+    <a href="/term-add">Go and add some</a>
 </div>
 {% endif %}
 {% endblock %}

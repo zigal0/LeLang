@@ -25,6 +25,7 @@ compose-rs:
 	make compose-down
 	make compose-up
 
+
 # MIGRATIONS
 .PHONY: make-migrations
 make-migrations:
@@ -34,15 +35,17 @@ make-migrations:
 migrate:
 	python manage.py migrate
 
-# lelang
+
+# LELANG
 .PHONY: run
 run:
-	python manage.py runserver
+	python manage.py runserver --insecure
 
 .PHONY: run-full
 run-full:
 	make compose-up
-	sleep(5)
+	echo "Waiting for docker with db..."
+	sleep 5
 	make migrate
 	make run
 

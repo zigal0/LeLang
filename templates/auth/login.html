@@ -10,7 +10,7 @@ Login
 {% load crispy_forms_tags %}
 
 <!--Login-->
-<div class="login container py-4 bg-dark-subtle rounded-3 col-md-6">
+<div class="login container py-4 bg-dark-subtle rounded-3 col-md-4">
     <div class="vstack px-5">
         <h1 class="fw-bold text-center">Login</h1>
 
@@ -20,7 +20,7 @@ Login
             {% csrf_token %}
             {{ login_form|crispy }}
             <div class="d-flex justify-content-center">
-                <button class="btn btn-primary col-md-6" type="submit">Login</button>
+                <button class="btn btn-primary col-md-3" formaction="/api/login" type="submit">Login</button>
             </div>
         </form>
 

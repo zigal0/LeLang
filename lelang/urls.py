@@ -18,4 +18,7 @@ urlpatterns = [
     path('profile/', views.profile_page, name='profile'),
     path('admin/', admin.site.urls, name='admin'),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('api/term-add', views.api_term_add),
+    path('api/login', views.api_login),
+    path('api/signup', views.api_signup),
 ]
